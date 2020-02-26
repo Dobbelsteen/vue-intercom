@@ -46,6 +46,8 @@ const init = ({ appId }) => {
   intercom.showMessages = () => callIntercom('showMessages')
   intercom.showNewMessage = content =>
     callIntercom('showNewMessage', ...(is(String, content) ? [content] : []))
+  intercom.trackEvent = (name, ...metadata) =>
+    callIntercom('trackEvent', ...[name, ...metadata])
   intercom.getVisitorId = () => callIntercom('getVisitorId')
   intercom.startTour = (id, ...metadata) =>
     callIntercom('startTour', ...[id, ...metadata])

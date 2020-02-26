@@ -77,6 +77,12 @@ var init = function (ref) {
   intercom.hide = function () { return callIntercom('hide'); };
   intercom.showMessages = function () { return callIntercom('showMessages'); };
   intercom.showNewMessage = function (content) { return callIntercom.apply(void 0, [ 'showNewMessage' ].concat( (is(String, content) ? [content] : []) )); };
+  intercom.trackEvent = function (name) {
+      var metadata = [], len = arguments.length - 1;
+      while ( len-- > 0 ) metadata[ len ] = arguments[ len + 1 ];
+
+      return callIntercom.apply(void 0, [ 'trackEvent' ].concat( [name ].concat( metadata) ));
+  };
   intercom.getVisitorId = function () { return callIntercom('getVisitorId'); };
   intercom.startTour = function (id) {
       var metadata = [], len = arguments.length - 1;

@@ -195,6 +195,31 @@ describe('Intercom plugin', () => {
       })
     })
 
+    describe('trackEvent', () => {
+      beforeEach(() => (window.Intercom = sinon.spy()))
+
+      it('called with event name', () => {
+        const vm = createVm()
+        vm.$intercom.trackEvent('foobar')
+        assert.isTrue(window.Intercom.calledOnce)
+        assert.isTrue(window.Intercom.calledWith('trackEvent', 'foobar'))
+        assert.strictEqual(window.Intercom.args[0].length, 2)
+      })
+
+      it('called with event name and meta data', () => {
+        const vm = createVm()
+        vm.$intercom.trackEvent('foobar', {
+          foo: 'foo',
+          bar: 'bar'
+        })
+        assert.isTrue(window.Intercom.calledOnce)
+        assert.isTrue(window.Intercom.calledWith('trackEvent', 'foobar'))
+        const options = window.Intercom.args[0][2]
+        assert.strictEqual(options.foo, 'foo')
+        assert.strictEqual(options.bar, 'bar')
+      })
+    })
+
     describe('getVisitorId', () => {
       beforeEach(() => (window.Intercom = sinon.spy()))
 
